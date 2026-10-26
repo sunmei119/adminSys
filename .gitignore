@@ -1,0 +1,6 @@
+# ShitPM internal docs - not for deployment
+plans/
+reports/
+wiki/
+iteration-plan-template.md
+README.md
