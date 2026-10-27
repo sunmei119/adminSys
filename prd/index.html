@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>菜单管理 PRD</title>
+<title>菜单管理与附件配置 PRD</title>
 <style>
   :root {
     --bg: #fafafa;
@@ -61,7 +61,6 @@
   th { background: #f9fafb; font-weight: 600; }
   tr:nth-child(even) td { background: #fcfcfd; }
   strong { color: #111827; }
-  hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
   .back { display: inline-block; margin-bottom: 20px; color: var(--accent); text-decoration: none; font-size: 14px; }
   .back:hover { text-decoration: underline; }
 </style>
@@ -76,13 +75,13 @@
   <p>为平台运营人员提供统一的菜单配置能力：按菜单位置维护菜单的打开方式、层级顺序与机构部门范围，配置发布后同步到各端，保证不同机构、不同部门看到的菜单与自身职责一致。</p>
 
   <h3>2. 本期范围</h3>
-  <p>包含菜单列表、新增菜单、编辑菜单，以及选择机构、选择部门两个辅助弹窗；不含菜单分组、菜单回收站、权限模板。</p>
+  <p>包含菜单列表、新增菜单、编辑菜单，以及选择机构、选择部门两个辅助弹窗；包含附件配置管理（列表、新增、编辑、启用、停用）；不含菜单分组、菜单回收站、权限模板、附件清理策略。</p>
 
   <h2>二、角色与权限</h2>
   <table>
     <thead><tr><th>角色</th><th>权限</th></tr></thead>
     <tbody>
-      <tr><td>平台管理员</td><td>查看全部菜单，新增、编辑、删除菜单，发布菜单配置</td></tr>
+      <tr><td>平台管理员</td><td>查看全部菜单，新增、编辑、删除菜单，发布菜单配置；查看全部附件配置，新增、编辑、启用、停用</td></tr>
       <tr><td>运营人员</td><td>可在菜单的「角色配置」中被选择；本期不开放菜单管理入口</td></tr>
     </tbody>
   </table>
@@ -94,6 +93,8 @@
   <p>分「基础信息」「归属与范围」「展示与权限」三个可收起分区录入，底部固定保存/取消。</p>
   <h3>page-3 编辑菜单</h3>
   <p>与新增同一页面，进入时回显已有配置；修改菜单位置会清空已选父级菜单。</p>
+  <h3>page-4 附件配置管理</h3>
+  <p>列表展示各业务系统在具体机构下的附件配置，支持按业务系统名称、机构名称、存储方式、状态筛选；可新增、编辑配置，并按需启用或停用。</p>
 
   <h2>四、详细需求说明</h2>
   <h3>4.1 菜单列表</h3>
@@ -156,6 +157,29 @@
     <li>保存后为配置态，需发布菜单配置才对端上生效。</li>
   </ol>
 
+  <h3>4.6 附件配置管理</h3>
+  <ol>
+    <li>列表字段：业务系统名称、机构名称、存储方式、状态、备注说明、更新时间、操作。</li>
+    <li>筛选：业务系统名称（模糊匹配）、机构名称（下拉）、存储方式（下拉）、状态（启用/停用）；支持搜索与重置。</li>
+    <li>新增与编辑共用弹窗，字段如下：
+      <ul>
+        <li>业务系统名称：必填，最多 50 字。</li>
+        <li>机构名称：必填，从统一机构库下拉选择，支持按名称搜索。</li>
+        <li>存储方式：必填，下拉选项为一体机、信创云、天翼云、东信云，新增时默认一体机。</li>
+        <li>备注说明：选填，最多 200 字，输入区显示字数计数。</li>
+      </ul>
+    </li>
+    <li>新增配置默认状态为启用；保存后刷新该条配置的更新时间。</li>
+    <li>启用/停用：
+      <ul>
+        <li>状态为启用时，行内操作显示「停用」；点击后二次确认，确认后状态变为停用。</li>
+        <li>状态为停用时，行内操作显示「启用」；点击后直接启用并提示。</li>
+        <li>停用后该业务系统的附件上传与下载不可用，配置保留，可随时重新启用。</li>
+      </ul>
+    </li>
+    <li>本期不提供删除入口，不再使用的配置通过停用下线。</li>
+  </ol>
+
   <h2>五、数据字典</h2>
   <table>
     <thead><tr><th>字段</th><th>类型</th><th>必填</th><th>说明</th></tr></thead>
@@ -177,6 +201,13 @@
       <tr><td>menu.grant.org</td><td>string</td><td>否</td><td>机构授权；为空表示全平台可见</td></tr>
       <tr><td>menu.grant.depts</td><td>string</td><td>否</td><td>该机构的可见部门；为空表示该机构全部部门</td></tr>
       <tr><td>menu.updated_at</td><td>datetime</td><td>是</td><td>最近更新时间，系统生成</td></tr>
+      <tr><td>attachment.id</td><td>string</td><td>是</td><td>附件配置唯一编号，系统生成</td></tr>
+      <tr><td>attachment.system_name</td><td>string</td><td>是</td><td>业务系统名称，最多 50 字</td></tr>
+      <tr><td>attachment.org_id</td><td>string</td><td>是</td><td>机构ID，取自统一机构库</td></tr>
+      <tr><td>attachment.storage</td><td>enum</td><td>是</td><td>存储方式：一体机 / 信创云 / 天翼云 / 东信云，默认一体机</td></tr>
+      <tr><td>attachment.remark</td><td>string</td><td>否</td><td>备注说明，最多 200 字</td></tr>
+      <tr><td>attachment.status</td><td>enum</td><td>是</td><td>启用（enabled）/ 停用（disabled），新增默认启用</td></tr>
+      <tr><td>attachment.updated_at</td><td>datetime</td><td>是</td><td>最近更新时间，系统生成</td></tr>
     </tbody>
   </table>
 
@@ -187,11 +218,13 @@
       <tr><td>菜单管理</td><td>查看全部、筛选、新增、编辑、删除、发布</td><td>无入口</td></tr>
       <tr><td>新增菜单</td><td>录入并保存</td><td>无入口</td></tr>
       <tr><td>编辑菜单</td><td>回显并保存</td><td>无入口</td></tr>
+      <tr><td>附件配置管理</td><td>查看全部、筛选、新增、编辑、启用、停用</td><td>无入口</td></tr>
     </tbody>
   </table>
   <p>按钮级口径：</p>
   <ul>
     <li><code>平台管理员</code>：可使用「新增菜单」「发布菜单配置」「编辑」「删除」「添加机构」「选择机构」「选择部门」「保存」「取消」。</li>
+    <li><code>平台管理员</code>：在附件配置管理中可使用「搜索」「重置」「新增附件配置」「编辑」「启用」「停用」。</li>
     <li>菜单数据的可见范围由 <code>menu.grant</code>（机构 + 部门）与 <code>menu.roles</code> 共同决定，对端上用户生效，不改变后台配置权限。</li>
   </ul>
 
