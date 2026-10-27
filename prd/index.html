@@ -3,237 +3,341 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>菜单管理与附件配置 PRD</title>
+<title>桂教通运营管理后台 - 菜单管理 PRD</title>
 <style>
   :root {
-    --bg: #fafafa;
-    --surface: #ffffff;
-    --border: #e5e7eb;
-    --text: #1f2937;
-    --muted: #6b7280;
-    --accent: #2563eb;
-    --code-bg: #f3f4f6;
+    --text: #1f2328; --muted: #656d76; --border: #d8dee4;
+    --accent: #0969da; --bg-soft: #f6f8fa;
   }
   * { box-sizing: border-box; }
   body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
+    margin: 0; color: var(--text); background: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-size: 15px; line-height: 1.75;
   }
-  .wrap {
-    max-width: 880px;
-    margin: 0 auto;
-    padding: 40px 24px 80px;
-    background: var(--surface);
-    min-height: 100vh;
-    border-left: 1px solid var(--border);
-    border-right: 1px solid var(--border);
+  .topbar {
+    padding: 12px 24px; border-bottom: 1px solid var(--border);
+    background: var(--bg-soft); font-size: 13px;
   }
-  h1 { font-size: 28px; margin: 0 0 24px; padding-bottom: 12px; border-bottom: 2px solid var(--accent); }
-  h2 { font-size: 22px; margin: 36px 0 16px; padding-left: 10px; border-left: 4px solid var(--accent); }
-  h3 { font-size: 18px; margin: 28px 0 12px; color: #111827; }
-  h4 { font-size: 16px; margin: 20px 0 10px; color: #374151; }
-  p { margin: 8px 0; }
-  ul, ol { padding-left: 24px; margin: 8px 0; }
-  li { margin: 4px 0; }
+  .topbar a { color: var(--accent); text-decoration: none; }
+  main { max-width: 920px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1 { font-size: 26px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  h2 { font-size: 21px; margin-top: 40px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 17px; margin-top: 28px; }
+  h4 { font-size: 15px; margin-top: 24px; color: var(--muted); }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 14px; display: block; overflow-x: auto; }
+  th, td { border: 1px solid var(--border); padding: 7px 12px; text-align: left; vertical-align: top; }
+  th { background: var(--bg-soft); font-weight: 600; white-space: nowrap; }
+  tr:nth-child(even) td { background: #fbfcfd; }
   code {
-    background: var(--code-bg);
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-    font-size: 0.9em;
-    color: #be185d;
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.9em;
+    background: var(--bg-soft); border-radius: 4px; padding: 2px 6px;
   }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 16px 0;
-    font-size: 14px;
-  }
-  th, td {
-    border: 1px solid var(--border);
-    padding: 10px 12px;
-    text-align: left;
-    vertical-align: top;
-  }
-  th { background: #f9fafb; font-weight: 600; }
-  tr:nth-child(even) td { background: #fcfcfd; }
-  strong { color: #111827; }
-  .back { display: inline-block; margin-bottom: 20px; color: var(--accent); text-decoration: none; font-size: 14px; }
-  .back:hover { text-decoration: underline; }
+  ol, ul { padding-inline-start: 26px; }
+  li { margin: 5px 0; }
+  li > ul, li > ol { margin: 4px 0; }
+  strong { font-weight: 600; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <a class="back" href="../index.html">← 返回导航</a>
-  <h1>桂教通运营管理后台 - 菜单管理产品需求文档</h1>
+<div class="topbar"><a href="../">← 返回导航首页</a></div>
+<main>
+<h1>桂教通运营管理后台 - 菜单管理产品需求文档</h1>
+<h2>一、概述</h2>
+<h3>1．产品目标</h3>
+<p>为平台运营人员提供统一的菜单配置能力：按菜单位置维护菜单的打开方式、层级顺序与所属机构范围，配置发布后同步到各端，保证不同机构看到的菜单与自身职责一致。</p>
+<h3>2．本期范围</h3>
+<p>包含菜单列表、新增菜单、编辑菜单；包含附件配置管理（列表、新增、编辑、启用、停用）；不含菜单分组、菜单回收站、权限模板、可见部门粒度配置、附件清理策略。</p>
+<h2>二、角色与权限</h2>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>权限</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>平台管理员</td>
+<td>查看全部菜单，新增、编辑、删除菜单，发布菜单配置；查看全部附件配置，新增、编辑、启用、停用</td>
+</tr>
+<tr>
+<td>运营人员</td>
+<td>可在菜单的「角色配置」中被选择；本期不开放菜单管理入口</td>
+</tr>
+</tbody></table>
+<h2>三、页面说明</h2>
+<h3>page-1 菜单管理</h3>
+<p>以列表方式展示全部菜单，支持按菜单名称、更新时间、菜单位置、所属机构（文本匹配）、菜单链接、菜单层级筛选；列表展示父级菜单、打开方式、跳转应用、所属机构、菜单链接、菜单图片、菜单层级、菜单顺序与更新时间；行内可编辑、删除，页头可新增、发布菜单配置。</p>
+<h3>page-2 新增菜单</h3>
+<p>分「基础信息」「归属与范围」「展示与权限」三个可收起分区录入，底部固定保存/取消。</p>
+<h3>page-3 编辑菜单</h3>
+<p>与新增同一页面，进入时回显已有配置；修改菜单位置会清空已选父级菜单。</p>
+<h3>page-4 附件配置管理</h3>
+<p>列表展示各业务系统在具体机构下的附件配置，支持按业务系统名称、机构名称、存储方式、状态筛选；可新增、编辑配置，并按需启用或停用。</p>
+<h2>四、详细需求说明</h2>
+<h3>4.1 菜单列表</h3>
+<ol>
+<li>默认按更新时间倒序展示，字段见数据字典。</li>
+<li>所属机构列：未填写显示「全平台」；单机构显示机构名称；多机构显示「首个机构 等 N 个」，悬停可查看全部机构。</li>
+<li>删除需二次确认，确认后菜单从列表移除。</li>
+<li>「发布菜单配置」需二次确认，确认后配置生效并刷新发布时间。</li>
+</ol>
+<h3>4.2 基础信息</h3>
+<ol>
+<li>菜单位置为必填，选项为 <code>pc企业-宪法赛事评审</code>、<code>pc企业-评审活动管理</code>、<code>pc管理端-平台功能设置</code>。</li>
+<li>菜单名称为必填，最多 30 字。</li>
+<li>打开方式必填，三选一，字段联动：<ul>
+<li>URL链接：菜单链接必填；是否外部链接可选内部跳转/外部跳转/内嵌，默认内部跳转。</li>
+<li>应用链接：跳转应用ID必填，跳转应用名称选填。</li>
+<li>单点跳转链接：菜单链接必填，按单点登录链路处理。</li>
+</ul>
+</li>
+<li>菜单链接以 <code>http://</code> 或 <code>https://</code> 开头按外链处理，不带协议按大平台内链处理。</li>
+</ol>
+<h3>4.3 归属与范围</h3>
+<ol>
+<li>所属机构为文本输入，非必填；多个机构以英文分号（;）隔开，例如：杭州市教育局;西湖区教育局。</li>
+<li>保存时自动按英文分号拆分，去除首尾空格与空项后合并存储。</li>
+<li>未填写所属机构时，菜单全平台可见。</li>
+<li>本期不再配置可见部门，可见范围粒度为机构。</li>
+</ol>
+<h3>4.4 展示与权限</h3>
+<ol>
+<li>父级菜单为选填，候选取值范围见 4.4.1。</li>
+<li>菜单层级必填，选项一级菜单/二级菜单/三级菜单，默认一级菜单。</li>
+<li>菜单顺序必填，为非负整数，默认 1，用于同位置同层级排序。</li>
+<li>角色配置为多选，选项平台管理员/运营人员。</li>
+<li>是否隐藏必填，默认显示。</li>
+<li>菜单图片选填，支持 jpg、png、svg，单文件不超过 1M，格式或大小不符时提示且不接受上传。</li>
+</ol>
+<h4>4.4.1 父级菜单与菜单位置的联动（强约束）</h4>
+<ol>
+<li><strong>父级菜单只能展示当前菜单位置下的菜单</strong>：候选列表 = 菜单位置与当前表单所选位置一致的菜单。</li>
+<li>候选排除当前编辑菜单自身；新增时无可排除对象。</li>
+<li>菜单位置未确定时没有候选，下拉为空；菜单位置为必填，不选位置无法保存。</li>
+<li>修改菜单位置后，已选父级菜单立即清空，需在新位置的候选中重新选择，避免出现「父级菜单与子菜单不属于同一位置」的脏配置。</li>
+<li>父级菜单下拉旁常驻提示「仅展示当前菜单位置下的菜单」，让配置者明确范围。</li>
+</ol>
+<h3>4.5 保存与生效</h3>
+<ol>
+<li>必填校验不通过时不允许保存，定位到对应分区与字段。</li>
+<li>保存成功回到列表并刷新该菜单的更新时间。</li>
+<li>保存后为配置态，需发布菜单配置才对端上生效。</li>
+</ol>
+<h3>4.6 附件配置管理</h3>
+<ol>
+<li>列表字段：业务系统名称、机构名称、存储方式、状态、备注说明、更新时间、操作。</li>
+<li>筛选：业务系统名称（模糊匹配）、机构名称（下拉）、存储方式（下拉）、状态（启用/停用）；支持搜索与重置。</li>
+<li>新增与编辑共用弹窗，字段如下：<ul>
+<li>业务系统名称：必填，最多 50 字。</li>
+<li>机构名称：必填，从统一机构库下拉选择，支持按名称搜索。</li>
+<li>存储方式：必填，下拉选项为一体机、信创云、天翼云、东信云，新增时默认一体机。</li>
+<li>备注说明：选填，最多 200 字，输入区显示字数计数。</li>
+</ul>
+</li>
+<li>新增配置默认状态为启用；保存后刷新该条配置的更新时间。</li>
+<li>启用/停用：<ul>
+<li>状态为启用时，行内操作显示「停用」；点击后二次确认，确认后状态变为停用。</li>
+<li>状态为停用时，行内操作显示「启用」；点击后直接启用并提示。</li>
+<li>停用后该业务系统的附件上传与下载不可用，配置保留，可随时重新启用。</li>
+</ul>
+</li>
+<li>本期不提供删除入口，不再使用的配置通过停用下线。</li>
+</ol>
+<h2>五、数据字典</h2>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>menu.id</td>
+<td>string</td>
+<td>是</td>
+<td>菜单唯一编号，系统生成</td>
+</tr>
+<tr>
+<td>menu.position</td>
+<td>enum</td>
+<td>是</td>
+<td>菜单位置：pc企业-宪法赛事评审 / pc企业-评审活动管理 / pc管理端-平台功能设置</td>
+</tr>
+<tr>
+<td>menu.name</td>
+<td>string</td>
+<td>是</td>
+<td>菜单名称，最多 30 字</td>
+</tr>
+<tr>
+<td>menu.open_type</td>
+<td>enum</td>
+<td>是</td>
+<td>打开方式：URL链接 / 应用链接 / 单点跳转链接</td>
+</tr>
+<tr>
+<td>menu.link</td>
+<td>string</td>
+<td>条件必填</td>
+<td>菜单链接；URL链接、单点跳转链接时必填</td>
+</tr>
+<tr>
+<td>menu.link_type</td>
+<td>enum</td>
+<td>否</td>
+<td>内部跳转 / 外部跳转 / 内嵌，仅 URL链接 生效，默认内部跳转</td>
+</tr>
+<tr>
+<td>menu.app_id</td>
+<td>string</td>
+<td>条件必填</td>
+<td>跳转应用ID，应用链接时必填</td>
+</tr>
+<tr>
+<td>menu.app_name</td>
+<td>string</td>
+<td>否</td>
+<td>跳转应用名称</td>
+</tr>
+<tr>
+<td>menu.parent_name</td>
+<td>string</td>
+<td>否</td>
+<td>父级菜单；候选仅限当前菜单位置下的菜单，排除自身</td>
+</tr>
+<tr>
+<td>menu.level</td>
+<td>enum</td>
+<td>是</td>
+<td>菜单层级：一级菜单 / 二级菜单 / 三级菜单</td>
+</tr>
+<tr>
+<td>menu.order</td>
+<td>int</td>
+<td>是</td>
+<td>菜单顺序，同位置同层级排序，默认 1</td>
+</tr>
+<tr>
+<td>menu.roles</td>
+<td>string</td>
+<td>否</td>
+<td>角色配置，多选：平台管理员 / 运营人员</td>
+</tr>
+<tr>
+<td>menu.hidden</td>
+<td>bool</td>
+<td>是</td>
+<td>是否隐藏菜单，默认显示</td>
+</tr>
+<tr>
+<td>menu.image</td>
+<td>string</td>
+<td>否</td>
+<td>菜单图片文件名，jpg/png/svg，≤1M</td>
+</tr>
+<tr>
+<td>menu.org_names</td>
+<td>string</td>
+<td>否</td>
+<td>所属机构名称，多个以英文分号（;）隔开；为空表示全平台可见</td>
+</tr>
+<tr>
+<td>menu.updated_at</td>
+<td>datetime</td>
+<td>是</td>
+<td>最近更新时间，系统生成</td>
+</tr>
+<tr>
+<td>attachment.id</td>
+<td>string</td>
+<td>是</td>
+<td>附件配置唯一编号，系统生成</td>
+</tr>
+<tr>
+<td>attachment.system_name</td>
+<td>string</td>
+<td>是</td>
+<td>业务系统名称，最多 50 字</td>
+</tr>
+<tr>
+<td>attachment.org_id</td>
+<td>string</td>
+<td>是</td>
+<td>机构ID，取自统一机构库</td>
+</tr>
+<tr>
+<td>attachment.storage</td>
+<td>enum</td>
+<td>是</td>
+<td>存储方式：一体机 / 信创云 / 天翼云 / 东信云，默认一体机</td>
+</tr>
+<tr>
+<td>attachment.remark</td>
+<td>string</td>
+<td>否</td>
+<td>备注说明，最多 200 字</td>
+</tr>
+<tr>
+<td>attachment.status</td>
+<td>enum</td>
+<td>是</td>
+<td>启用（enabled）/ 停用（disabled），新增默认启用</td>
+</tr>
+<tr>
+<td>attachment.updated_at</td>
+<td>datetime</td>
+<td>是</td>
+<td>最近更新时间，系统生成</td>
+</tr>
+</tbody></table>
+<h2>六、权限汇总</h2>
+<table>
+<thead>
+<tr>
+<th>页面/对象</th>
+<th>平台管理员</th>
+<th>运营人员</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>菜单管理</td>
+<td>查看全部、筛选、新增、编辑、删除、发布</td>
+<td>无入口</td>
+</tr>
+<tr>
+<td>新增菜单</td>
+<td>录入并保存</td>
+<td>无入口</td>
+</tr>
+<tr>
+<td>编辑菜单</td>
+<td>回显并保存</td>
+<td>无入口</td>
+</tr>
+<tr>
+<td>附件配置管理</td>
+<td>查看全部、筛选、新增、编辑、启用、停用</td>
+<td>无入口</td>
+</tr>
+</tbody></table>
+<p>按钮级口径：</p>
+<ul>
+<li><code>平台管理员</code>：可使用「新增菜单」「发布菜单配置」「编辑」「删除」「保存」「取消」。</li>
+<li><code>平台管理员</code>：在附件配置管理中可使用「搜索」「重置」「新增附件配置」「编辑」「启用」「停用」。</li>
+<li>菜单数据的可见范围由 <code>menu.org_names</code>（所属机构）与 <code>menu.roles</code> 共同决定，对端上用户生效，不改变后台配置权限。</li>
+</ul>
+<h2>七、状态机</h2>
+<p>配置态（新增/编辑/删除已保存）→ 发布确认 → 生效态。</p>
+<ul>
+<li>配置态：仅后台列表可见，端上仍为上一次发布结果。</li>
+<li>生效态：端上按最新位置、层级、可见范围展示。</li>
+</ul>
 
-  <h2>一、概述</h2>
-  <h3>1. 产品目标</h3>
-  <p>为平台运营人员提供统一的菜单配置能力：按菜单位置维护菜单的打开方式、层级顺序与机构部门范围，配置发布后同步到各端，保证不同机构、不同部门看到的菜单与自身职责一致。</p>
-
-  <h3>2. 本期范围</h3>
-  <p>包含菜单列表、新增菜单、编辑菜单，以及选择机构、选择部门两个辅助弹窗；包含附件配置管理（列表、新增、编辑、启用、停用）；不含菜单分组、菜单回收站、权限模板、附件清理策略。</p>
-
-  <h2>二、角色与权限</h2>
-  <table>
-    <thead><tr><th>角色</th><th>权限</th></tr></thead>
-    <tbody>
-      <tr><td>平台管理员</td><td>查看全部菜单，新增、编辑、删除菜单，发布菜单配置；查看全部附件配置，新增、编辑、启用、停用</td></tr>
-      <tr><td>运营人员</td><td>可在菜单的「角色配置」中被选择；本期不开放菜单管理入口</td></tr>
-    </tbody>
-  </table>
-
-  <h2>三、页面说明</h2>
-  <h3>page-1 菜单管理</h3>
-  <p>以列表方式展示全部菜单，支持按菜单名称、更新时间、菜单位置、所属机构、菜单链接、菜单层级筛选；列表展示父级菜单、打开方式、跳转应用、所属机构、可见部门、菜单链接、菜单图片、菜单层级、菜单顺序与更新时间；行内可编辑、删除，页头可新增、发布菜单配置。</p>
-  <h3>page-2 新增菜单</h3>
-  <p>分「基础信息」「归属与范围」「展示与权限」三个可收起分区录入，底部固定保存/取消。</p>
-  <h3>page-3 编辑菜单</h3>
-  <p>与新增同一页面，进入时回显已有配置；修改菜单位置会清空已选父级菜单。</p>
-  <h3>page-4 附件配置管理</h3>
-  <p>列表展示各业务系统在具体机构下的附件配置，支持按业务系统名称、机构名称、存储方式、状态筛选；可新增、编辑配置，并按需启用或停用。</p>
-
-  <h2>四、详细需求说明</h2>
-  <h3>4.1 菜单列表</h3>
-  <ol>
-    <li>默认按更新时间倒序展示，字段见数据字典。</li>
-    <li>所属机构列：无机构授权显示「全平台」；单机构显示机构名称；多机构显示「首个机构 等 N 个」，悬停可查看全部机构。</li>
-    <li>可见部门列：全部部门显示「全部部门」；部分部门显示「N 个部门」；同一菜单既有全部门机构又有指定部门机构时显示「全部 + N 个」，悬停按机构展示部门明细。</li>
-    <li>删除需二次确认，确认后菜单从列表移除。</li>
-    <li>「发布菜单配置」需二次确认，确认后配置生效并刷新发布时间。</li>
-  </ol>
-
-  <h3>4.2 基础信息</h3>
-  <ol>
-    <li>菜单位置为必填，选项为 <code>pc企业-宪法赛事评审</code>、<code>pc企业-评审活动管理</code>、<code>pc管理端-平台功能设置</code>。</li>
-    <li>菜单名称为必填，最多 30 字。</li>
-    <li>打开方式必填，三选一，字段联动：
-      <ul>
-        <li>URL链接：菜单链接必填；是否外部链接可选内部跳转/外部跳转/内嵌，默认内部跳转。</li>
-        <li>应用链接：跳转应用ID必填，跳转应用名称选填。</li>
-        <li>单点跳转链接：菜单链接必填，按单点登录链路处理。</li>
-      </ul>
-    </li>
-    <li>菜单链接以 <code>http://</code> 或 <code>https://</code> 开头按外链处理，不带协议按大平台内链处理。</li>
-  </ol>
-
-  <h3>4.3 归属与范围</h3>
-  <ol>
-    <li>可添加多个机构授权，每条授权 = 一个机构 + 该机构下的可见部门。</li>
-    <li>所属机构非必填，选择入口为弹窗：支持按机构名称/机构ID搜索，列表展示机构名称、机构ID、类型、管理员，单选后回填并关闭。</li>
-    <li>可见部门通过「选择部门」弹窗配置：左侧为所选机构的部门树（可勾选、默认展开），右侧展示「已选部门（N）」清单，未选时显示「暂无选中」，底部取消/确定。</li>
-    <li>未选择机构时「选择部门」按钮禁用，提示先选择所属机构。</li>
-    <li>更换机构时清空该行已选部门。</li>
-    <li>存在未选机构的空行时，点击「添加机构」提示「请先选择所属机构」并不新增；保存时自动丢弃未选机构的空行。</li>
-    <li>未配置任何机构授权时，菜单全平台可见。</li>
-  </ol>
-
-  <h3>4.4 展示与权限</h3>
-  <ol>
-    <li>父级菜单为选填，候选取值范围见 4.4.1。</li>
-    <li>菜单层级必填，选项一级菜单/二级菜单/三级菜单，默认一级菜单。</li>
-    <li>菜单顺序必填，为非负整数，默认 1，用于同位置同层级排序。</li>
-    <li>角色配置为多选，选项平台管理员/运营人员。</li>
-    <li>是否隐藏必填，默认显示。</li>
-    <li>菜单图片选填，支持 jpg、png、svg，单文件不超过 1M，格式或大小不符时提示且不接受上传。</li>
-  </ol>
-
-  <h4>4.4.1 父级菜单与菜单位置的联动（强约束）</h4>
-  <ol>
-    <li><strong>父级菜单只能展示当前菜单位置下的菜单</strong>：候选列表 = 菜单位置与当前表单所选位置一致的菜单。</li>
-    <li>候选排除当前编辑菜单自身；新增时无可排除对象。</li>
-    <li>菜单位置未确定时没有候选，下拉为空；菜单位置为必填，不选位置无法保存。</li>
-    <li>修改菜单位置后，已选父级菜单立即清空，需在新位置的候选中重新选择，避免出现「父级菜单与子菜单不属于同一位置」的脏配置。</li>
-    <li>父级菜单下拉旁常驻提示「仅展示当前菜单位置下的菜单」，让配置者明确范围。</li>
-  </ol>
-
-  <h3>4.5 保存与生效</h3>
-  <ol>
-    <li>必填校验不通过时不允许保存，定位到对应分区与字段。</li>
-    <li>保存成功回到列表并刷新该菜单的更新时间。</li>
-    <li>保存后为配置态，需发布菜单配置才对端上生效。</li>
-  </ol>
-
-  <h3>4.6 附件配置管理</h3>
-  <ol>
-    <li>列表字段：业务系统名称、机构名称、存储方式、状态、备注说明、更新时间、操作。</li>
-    <li>筛选：业务系统名称（模糊匹配）、机构名称（下拉）、存储方式（下拉）、状态（启用/停用）；支持搜索与重置。</li>
-    <li>新增与编辑共用弹窗，字段如下：
-      <ul>
-        <li>业务系统名称：必填，最多 50 字。</li>
-        <li>机构名称：必填，从统一机构库下拉选择，支持按名称搜索。</li>
-        <li>存储方式：必填，下拉选项为一体机、信创云、天翼云、东信云，新增时默认一体机。</li>
-        <li>备注说明：选填，最多 200 字，输入区显示字数计数。</li>
-      </ul>
-    </li>
-    <li>新增配置默认状态为启用；保存后刷新该条配置的更新时间。</li>
-    <li>启用/停用：
-      <ul>
-        <li>状态为启用时，行内操作显示「停用」；点击后二次确认，确认后状态变为停用。</li>
-        <li>状态为停用时，行内操作显示「启用」；点击后直接启用并提示。</li>
-        <li>停用后该业务系统的附件上传与下载不可用，配置保留，可随时重新启用。</li>
-      </ul>
-    </li>
-    <li>本期不提供删除入口，不再使用的配置通过停用下线。</li>
-  </ol>
-
-  <h2>五、数据字典</h2>
-  <table>
-    <thead><tr><th>字段</th><th>类型</th><th>必填</th><th>说明</th></tr></thead>
-    <tbody>
-      <tr><td>menu.id</td><td>string</td><td>是</td><td>菜单唯一编号，系统生成</td></tr>
-      <tr><td>menu.position</td><td>enum</td><td>是</td><td>菜单位置：pc企业-宪法赛事评审 / pc企业-评审活动管理 / pc管理端-平台功能设置</td></tr>
-      <tr><td>menu.name</td><td>string</td><td>是</td><td>菜单名称，最多 30 字</td></tr>
-      <tr><td>menu.open_type</td><td>enum</td><td>是</td><td>打开方式：URL链接 / 应用链接 / 单点跳转链接</td></tr>
-      <tr><td>menu.link</td><td>string</td><td>条件必填</td><td>菜单链接；URL链接、单点跳转链接时必填</td></tr>
-      <tr><td>menu.link_type</td><td>enum</td><td>否</td><td>内部跳转 / 外部跳转 / 内嵌，仅 URL链接 生效，默认内部跳转</td></tr>
-      <tr><td>menu.app_id</td><td>string</td><td>条件必填</td><td>跳转应用ID，应用链接时必填</td></tr>
-      <tr><td>menu.app_name</td><td>string</td><td>否</td><td>跳转应用名称</td></tr>
-      <tr><td>menu.parent_name</td><td>string</td><td>否</td><td>父级菜单；候选仅限当前菜单位置下的菜单，排除自身</td></tr>
-      <tr><td>menu.level</td><td>enum</td><td>是</td><td>菜单层级：一级菜单 / 二级菜单 / 三级菜单</td></tr>
-      <tr><td>menu.order</td><td>int</td><td>是</td><td>菜单顺序，同位置同层级排序，默认 1</td></tr>
-      <tr><td>menu.roles</td><td>string</td><td>否</td><td>角色配置，多选：平台管理员 / 运营人员</td></tr>
-      <tr><td>menu.hidden</td><td>bool</td><td>是</td><td>是否隐藏菜单，默认显示</td></tr>
-      <tr><td>menu.image</td><td>string</td><td>否</td><td>菜单图片文件名，jpg/png/svg，≤1M</td></tr>
-      <tr><td>menu.grant.org</td><td>string</td><td>否</td><td>机构授权；为空表示全平台可见</td></tr>
-      <tr><td>menu.grant.depts</td><td>string</td><td>否</td><td>该机构的可见部门；为空表示该机构全部部门</td></tr>
-      <tr><td>menu.updated_at</td><td>datetime</td><td>是</td><td>最近更新时间，系统生成</td></tr>
-      <tr><td>attachment.id</td><td>string</td><td>是</td><td>附件配置唯一编号，系统生成</td></tr>
-      <tr><td>attachment.system_name</td><td>string</td><td>是</td><td>业务系统名称，最多 50 字</td></tr>
-      <tr><td>attachment.org_id</td><td>string</td><td>是</td><td>机构ID，取自统一机构库</td></tr>
-      <tr><td>attachment.storage</td><td>enum</td><td>是</td><td>存储方式：一体机 / 信创云 / 天翼云 / 东信云，默认一体机</td></tr>
-      <tr><td>attachment.remark</td><td>string</td><td>否</td><td>备注说明，最多 200 字</td></tr>
-      <tr><td>attachment.status</td><td>enum</td><td>是</td><td>启用（enabled）/ 停用（disabled），新增默认启用</td></tr>
-      <tr><td>attachment.updated_at</td><td>datetime</td><td>是</td><td>最近更新时间，系统生成</td></tr>
-    </tbody>
-  </table>
-
-  <h2>六、权限汇总</h2>
-  <table>
-    <thead><tr><th>页面/对象</th><th>平台管理员</th><th>运营人员</th></tr></thead>
-    <tbody>
-      <tr><td>菜单管理</td><td>查看全部、筛选、新增、编辑、删除、发布</td><td>无入口</td></tr>
-      <tr><td>新增菜单</td><td>录入并保存</td><td>无入口</td></tr>
-      <tr><td>编辑菜单</td><td>回显并保存</td><td>无入口</td></tr>
-      <tr><td>附件配置管理</td><td>查看全部、筛选、新增、编辑、启用、停用</td><td>无入口</td></tr>
-    </tbody>
-  </table>
-  <p>按钮级口径：</p>
-  <ul>
-    <li><code>平台管理员</code>：可使用「新增菜单」「发布菜单配置」「编辑」「删除」「添加机构」「选择机构」「选择部门」「保存」「取消」。</li>
-    <li><code>平台管理员</code>：在附件配置管理中可使用「搜索」「重置」「新增附件配置」「编辑」「启用」「停用」。</li>
-    <li>菜单数据的可见范围由 <code>menu.grant</code>（机构 + 部门）与 <code>menu.roles</code> 共同决定，对端上用户生效，不改变后台配置权限。</li>
-  </ul>
-
-  <h2>七、状态机</h2>
-  <p>配置态（新增/编辑/删除已保存）→ 发布确认 → 生效态。</p>
-  <ul>
-    <li>配置态：仅后台列表可见，端上仍为上一次发布结果。</li>
-    <li>生效态：端上按最新位置、层级、可见范围展示。</li>
-  </ul>
-</div>
+</main>
 </body>
 </html>
